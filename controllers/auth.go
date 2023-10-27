@@ -8,6 +8,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// SignUp      	 godoc
+// @Summary      SignUp endpoint for creating new user
+// @Description  Creates new user
+// @Tags         auth
+// @Produce      json
+// @Param        user  body  SignUpInput  true  "User details"
+// @Success      200  {array}  SignUpOutput
+// @Router       /auth/signup [post]
 func SignUp(c *gin.Context) {
 
 	var input SignUpInput
