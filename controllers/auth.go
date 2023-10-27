@@ -1,15 +1,12 @@
 package controllers
 
 import (
+	service "albert/services"
+	. "albert/structs"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
-
-type SignUpInput struct {
-	Email    string `json:"email" binding:"required"`
-	Password string `json:"password" binding:"required"`
-}
 
 func SignUp(c *gin.Context) {
 
@@ -20,5 +17,5 @@ func SignUp(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "validated!"})
+	c.JSON(http.StatusOK, service.SignUp(input))
 }
