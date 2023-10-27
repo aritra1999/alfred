@@ -1,0 +1,47 @@
+basePath: /api/
+definitions:
+  structs.SignUpInput:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  structs.SignUpOutput:
+    properties:
+      message:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Alfred is our rest endpoint service
+  title: CareerLab - Alfred
+  version: "1.0"
+paths:
+  /auth/signup:
+    post:
+      description: Creates new user
+      parameters:
+      - description: User details
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/structs.SignUpInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/structs.SignUpOutput'
+            type: array
+      summary: SignUp endpoint for creating new user
+      tags:
+      - auth
+swagger: "2.0"
