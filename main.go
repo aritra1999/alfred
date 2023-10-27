@@ -12,18 +12,17 @@ import (
 
 // @title           CareerLab - Alfred
 // @version         1.0
-// @description     API documentation for Alfred
-
-// @host      localhost:8080
-// @BasePath  /api/
-
-// @externalDocs.description  OpenAPI
-// @externalDocs.url          https://swagger.io/resources/open-api/
+// @description     Alfred is our rest endpoint service
+// @host      		localhost:8080
+// @BasePath  		/api/
 func main() {
 
 	models.ConnectDataBase()
 
 	router := gin.Default()
+	router.ForwardedByClientIP = true
+	router.SetTrustedProxies([]string{"127.0.0.1"})
+
 	public := router.Group("/api")
 
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

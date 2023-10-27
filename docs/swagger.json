@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "API documentation for Alfred",
+        "description": "Alfred is our rest endpoint service",
         "title": "CareerLab - Alfred",
         "contact": {},
         "version": "1.0"
@@ -68,9 +68,5 @@
                 }
             }
         }
-    },
-    "externalDocs": {
-        "description": "OpenAPI",
-        "url": "https://swagger.io/resources/open-api/"
     }
 }

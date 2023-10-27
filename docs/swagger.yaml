@@ -15,13 +15,10 @@ definitions:
       message:
         type: string
     type: object
-externalDocs:
-  description: OpenAPI
-  url: https://swagger.io/resources/open-api/
 host: localhost:8080
 info:
   contact: {}
-  description: API documentation for Alfred
+  description: Alfred is our rest endpoint service
   title: CareerLab - Alfred
   version: "1.0"
 paths:

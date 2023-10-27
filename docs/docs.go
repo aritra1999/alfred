@@ -74,10 +74,6 @@ const docTemplate = `{
                 }
             }
         }
-    },
-    "externalDocs": {
-        "description": "OpenAPI",
-        "url": "https://swagger.io/resources/open-api/"
     }
 }`
 
@@ -88,7 +84,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "/api/",
 	Schemes:          []string{},
 	Title:            "CareerLab - Alfred",
-	Description:      "API documentation for Alfred",
+	Description:      "Alfred is our rest endpoint service",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",
