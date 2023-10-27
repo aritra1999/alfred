@@ -22,11 +22,11 @@ import (
 func main() {
 
 	models.ConnectDataBase()
+
 	router := gin.Default()
+	public := router.Group("/api")
 
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
-	public := router.Group("/api")
 	authRouter := public.Group("/auth")
 	{
 		authRouter.POST("/signup", controllers.SignUp)
