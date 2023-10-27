@@ -11,10 +11,12 @@ func main() {
 
 	models.ConnectDataBase()
 	router := gin.Default()
-
 	public := router.Group("/api")
 
-	public.POST("/signup", controllers.SignUp)
+	authRouter := public.Group("/auth")
+	{
+		authRouter.POST("/signup", controllers.SignUp)
+	}
 
 	router.Run(":8080")
 
