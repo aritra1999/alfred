@@ -81,7 +81,7 @@ const docTemplate = `{
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
 	Host:             "localhost:8080",
-	BasePath:         "/api/",
+	BasePath:         "/v1/",
 	Schemes:          []string{},
 	Title:            "CareerLab - Alfred",
 	Description:      "Alfred is our rest endpoint service",
