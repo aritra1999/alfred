@@ -32,26 +32,16 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/structs.SignUpInput"
+                            "$ref": "#/definitions/controllers.SignUpInput"
                         }
                     }
                 ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/structs.SignUpOutput"
-                            }
-                        }
-                    }
-                }
+                "responses": {}
             }
         }
     },
     "definitions": {
-        "structs.SignUpInput": {
+        "controllers.SignUpInput": {
             "type": "object",
             "required": [
                 "email",
@@ -62,14 +52,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "password": {
-                    "type": "string"
-                }
-            }
-        },
-        "structs.SignUpOutput": {
-            "type": "object",
-            "properties": {
-                "message": {
                     "type": "string"
                 }
             }
