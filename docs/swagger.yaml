@@ -1,6 +1,6 @@
 basePath: /v1/
 definitions:
-  structs.SignUpInput:
+  controllers.SignUpInput:
     properties:
       email:
         type: string
@@ -9,11 +9,6 @@ definitions:
     required:
     - email
     - password
-    type: object
-  structs.SignUpOutput:
-    properties:
-      message:
-        type: string
     type: object
 host: localhost:8080
 info:
@@ -31,16 +26,10 @@ paths:
         name: user
         required: true
         schema:
-          $ref: '#/definitions/structs.SignUpInput'
+          $ref: '#/definitions/controllers.SignUpInput'
       produces:
       - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/structs.SignUpOutput'
-            type: array
+      responses: {}
       summary: SignUp endpoint for creating new user
       tags:
       - auth
