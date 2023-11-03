@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"albert/models"
+	"albert/services/mail"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -39,6 +40,8 @@ func SignUp(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
+
+	mail.SendEmail(u.Email, "Welcome to CareerLab", "You have successfully signed up to CareerLab")
 
 	c.JSON(http.StatusOK, gin.H{"message": "user created successfully"})
 }

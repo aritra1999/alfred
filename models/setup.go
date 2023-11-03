@@ -5,7 +5,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -13,13 +12,6 @@ import (
 var DB *gorm.DB
 
 func ConnectDataBase() {
-
-	err := godotenv.Load(".env")
-
-	if err != nil {
-		log.Fatalf("Error loading .env file")
-	}
-
 	Dbdriver := os.Getenv("DB_DRIVER")
 	DbHost := os.Getenv("DB_HOST")
 	DbUser := os.Getenv("DB_USER")
@@ -29,6 +21,7 @@ func ConnectDataBase() {
 
 	DSN := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Shanghai", DbHost, DbUser, DbPassword, DbName, DbPort)
 
+	var err error
 	DB, err = gorm.Open(postgres.Open(DSN), &gorm.Config{})
 
 	if err != nil {
@@ -40,5 +33,6 @@ func ConnectDataBase() {
 }
 
 func MigrateTables() {
+	DB.Exec("CREATE TYPE role AS ENUM('user', 'admin', 'moderator');")
 	DB.AutoMigrate(&User{})
 }

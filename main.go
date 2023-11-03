@@ -5,14 +5,19 @@ import (
 	_ "albert/docs"
 	"albert/middlewares"
 	"albert/models"
+	"log"
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func init() {
+	if err := godotenv.Load(".env"); err != nil {
+		log.Fatalf("Error loading .env file")
+	}
 	models.ConnectDataBase()
 	models.MigrateTables()
 }
@@ -33,6 +38,7 @@ func main() {
 	router.GET("/ping", controllers.Ping)
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
+	// Public routes
 	v1Public := router.Group("/v1")
 	authRouter := v1Public.Group("/auth")
 	authRouter.POST("/signup", controllers.SignUp)
@@ -41,10 +47,10 @@ func main() {
 	// Private routes
 	v1Private := router.Group("/v1")
 	v1Private.Use(middlewares.JwtAuthMiddleware())
+
 	// Admin Routes
 	adminRouter := router.Group("/v1")
 	adminRouter.Use(middlewares.AdminAuthMiddleware())
-	adminRouter.GET("/users", controllers.GetCountOfUsers)
 
 	port := ":" + os.Getenv("PORT")
 	router.Run(port)
