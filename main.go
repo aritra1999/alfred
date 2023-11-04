@@ -5,6 +5,7 @@ import (
 	_ "albert/docs"
 	"albert/middlewares"
 	"albert/models"
+	"albert/services/cache"
 	"log"
 	"os"
 
@@ -20,6 +21,7 @@ func init() {
 	}
 	models.ConnectDataBase()
 	models.MigrateTables()
+	cache.RedisClient()
 }
 
 // @title           CareerLab - Alfred
