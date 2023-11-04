@@ -43,8 +43,10 @@ func main() {
 	// Public routes
 	v1Public := router.Group("/v1")
 	authRouter := v1Public.Group("/auth")
+
 	authRouter.POST("/signup", controllers.SignUp)
-	authRouter.POST("/signin", controllers.SignIn)
+	authRouter.GET("/magic-link", controllers.ValidateMagicLink)
+	authRouter.POST("/send-magic-link", controllers.SendMagicLink)
 
 	// Private routes
 	v1Private := router.Group("/v1")
