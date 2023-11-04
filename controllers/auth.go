@@ -6,7 +6,6 @@ import (
 	"albert/services/cache"
 	"albert/services/mail"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"time"
@@ -71,8 +70,6 @@ func SendMagicLink(c *gin.Context) {
 
 func ValidateMagicLink(c *gin.Context) {
 	token := c.Query("token")
-
-	log.Println(token)
 
 	email, err := cache.Get(token)
 	if err != nil {
