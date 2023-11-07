@@ -8,11 +8,13 @@ import (
 	"albert/services/cache"
 	"log"
 	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"golang.org/x/time/rate"
 )
 
 func init() {
@@ -33,10 +35,14 @@ func main() {
 	gin.SetMode(gin.DebugMode)
 
 	router := gin.Default()
-
 	router.ForwardedByClientIP = true
 	router.SetTrustedProxies([]string{"127.0.0.1"})
 
+	// Middlewares
+	router.Use(middlewares.CorsMiddleware())
+	router.Use(middlewares.RateLimiterMiddleware(rate.Every(1*time.Second), 5))
+
+	// Internal routes
 	router.GET("/ping", controllers.Ping)
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
@@ -45,8 +51,8 @@ func main() {
 	authRouter := v1Public.Group("/auth")
 
 	authRouter.POST("/signup", controllers.SignUp)
-	authRouter.GET("/magic-link", controllers.ValidateMagicLink)
 	authRouter.POST("/send-magic-link", controllers.SendMagicLink)
+	authRouter.GET("/magic-link", controllers.ValidateMagicLink)
 
 	// Private routes
 	v1Private := router.Group("/v1")
