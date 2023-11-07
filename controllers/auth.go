@@ -32,7 +32,7 @@ func SignUp(c *gin.Context) {
 	u.Email = input.Email
 
 	if _, err := u.SaveUser(); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 

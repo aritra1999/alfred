@@ -5,6 +5,7 @@ import (
 	"errors"
 	"html"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -29,6 +30,9 @@ const (
 
 func (user *User) SaveUser() (*User, error) {
 	if err := DB.Create(&user).Error; err != nil {
+		if matched, _ := regexp.MatchString("SQLSTATE 23505", err.Error()); matched {
+			err = errors.New("Email already exists")
+		}
 		return &User{}, err
 	}
 	return user, nil
