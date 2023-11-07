@@ -1,36 +1,9 @@
 basePath: /v1/
-definitions:
-  controllers.SignUpInput:
-    properties:
-      email:
-        type: string
-      password:
-        type: string
-    required:
-    - email
-    - password
-    type: object
 host: localhost:8080
 info:
   contact: {}
   description: Alfred is our rest endpoint service
   title: CareerLab - Alfred
   version: "1.0"
-paths:
-  /auth/signup:
-    post:
-      description: Creates new user
-      parameters:
-      - description: User details
-        in: body
-        name: user
-        required: true
-        schema:
-          $ref: '#/definitions/controllers.SignUpInput'
-      produces:
-      - application/json
-      responses: {}
-      summary: SignUp endpoint for creating new user
-      tags:
-      - auth
+paths: {}
 swagger: "2.0"
