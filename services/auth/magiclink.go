@@ -1,12 +1,17 @@
 package auth
 
 import (
-	"crypto/rand"
-	"encoding/base64"
+	"math/rand"
+	"time"
 )
 
 func GenerateMagicLinkToken() string {
-	tokenBytes := make([]byte, 32)
-	rand.Read(tokenBytes)
-	return base64.StdEncoding.EncodeToString(tokenBytes)
+	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	var seededRand *rand.Rand = rand.New(rand.NewSource(time.Now().UnixNano()))
+
+	b := make([]byte, 32)
+	for i := range b {
+		b[i] = charset[seededRand.Intn(len(charset))]
+	}
+	return string(b)
 }
