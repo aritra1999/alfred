@@ -15,7 +15,9 @@ func SendEmail(to, subject, text string) (string, error) {
 	from := fmt.Sprintf("Excited User <mail@%s>", domain)
 
 	mg := mailgun.NewMailgun(domain, apiKey)
-	m := mg.NewMessage(from, subject, text, to)
-	_, id, err := mg.Send(m)
+	message := mg.NewMessage(from, subject, "", to)
+	message.SetHtml(text)
+
+	_, id, err := mg.Send(message)
 	return id, err
 }
