@@ -46,13 +46,11 @@ func (user *User) BeforeCreate(tx *gorm.DB) error {
 	return nil
 }
 
-// TODO: Update this (user *User) Exists() bool
-func CheckUser(email string) error {
-	u := User{}
-	if err := DB.Model(User{}).Where("email = ?", email).Take(&u).Error; err != nil {
-		return err
+func (user *User) Exists() bool {
+	if err := DB.Model(User{}).Where("email = ?", user.Email).Take(&user).Error; err != nil {
+		return false
 	}
-	return nil
+	return true
 }
 
 func GetUserByEmail(email string) (*User, error) {
