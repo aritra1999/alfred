@@ -17,10 +17,6 @@ type SignUpInput struct {
 	Email string `json:"email" binding:"required"`
 }
 
-type MagicLinkInput struct {
-	Email string `json:"email" binding:"required"`
-}
-
 func SignUp(c *gin.Context) {
 	var input SignUpInput
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -41,6 +37,10 @@ func SignUp(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "user created successfully"})
 }
 
+type MagicLinkInput struct {
+	Email string `json:"email" binding:"required"`
+}
+
 func SendMagicLink(c *gin.Context) {
 	user := models.User{}
 
@@ -58,9 +58,12 @@ func SendMagicLink(c *gin.Context) {
 
 	magicLinkToken := auth.GenerateMagicLinkToken()
 	cache.Set(magicLinkToken, user.Email, 10*time.Minute)
+	frontEnd := os.Getenv("FRONTEND_URL")
+	magicLink := fmt.Sprintf("%s/auth/validate?token=%s", frontEnd, magicLinkToken)
 
-	magicLink := fmt.Sprintf("http://%s/auth/magic-link?token=%s", os.Getenv("FRONTEND_URL"), magicLinkToken)
-	if _, err := mail.SendEmail(user.Email, "CareerLab OTP", fmt.Sprintf("Your magic link is %s (valid for 10 mins)", magicLink)); err != nil {
+	emailBody := fmt.Sprintf("Your <a href='%s' target='_blank'>magic link</a> is here! (valid for 10 mins)", magicLink)
+
+	if _, err := mail.SendEmail(user.Email, "CareerLab OTP", emailBody); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error sending magic link, please try again later"})
 		return
 	}
