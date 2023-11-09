@@ -5,7 +5,6 @@ import (
 	"errors"
 	"html"
 	"os"
-	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -30,10 +29,7 @@ const (
 
 func (user *User) SaveUser() (*User, error) {
 	if err := DB.Create(&user).Error; err != nil {
-		if matched, _ := regexp.MatchString("SQLSTATE 23505", err.Error()); matched {
-			err = errors.New("Email already exists")
-		}
-		return &User{}, err
+		return &User{}, utils.ParseError(err)
 	}
 	return user, nil
 }
@@ -50,6 +46,7 @@ func (user *User) BeforeCreate(tx *gorm.DB) error {
 	return nil
 }
 
+// TODO: Update this (user *User) Exists() bool
 func CheckUser(email string) error {
 	u := User{}
 	if err := DB.Model(User{}).Where("email = ?", email).Take(&u).Error; err != nil {
