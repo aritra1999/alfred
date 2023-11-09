@@ -42,7 +42,6 @@ type MagicLinkInput struct {
 }
 
 func SendMagicLink(c *gin.Context) {
-	user := models.User{}
 
 	var input MagicLinkInput
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -50,8 +49,11 @@ func SendMagicLink(c *gin.Context) {
 		return
 	}
 
-	user.Email = input.Email
-	if err := models.CheckUser(user.Email); err != nil {
+	user := models.User{
+		Email: input.Email,
+	}
+
+	if !user.Exists() {
 		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
 	}
