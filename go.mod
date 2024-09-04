@@ -8,7 +8,7 @@ require (
 	github.com/mailgun/mailgun-go v2.0.0+incompatible
 	github.com/swaggo/files v1.0.1
 	github.com/swaggo/gin-swagger v1.6.0
-	github.com/swaggo/swag v1.16.2
+	github.com/swaggo/swag v1.16.3
 	golang.org/x/time v0.4.0
 	gorm.io/driver/postgres v1.5.6
 	gorm.io/gorm v1.25.7-0.20240204074919-46816ad31dde
