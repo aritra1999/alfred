@@ -28,7 +28,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rogpeppe/go-internal v1.9.0 // indirect
-	golang.org/x/crypto v0.17.0 // indirect
+	golang.org/x/crypto v0.21.0 // indirect
 	golang.org/x/sync v0.4.0 // indirect
 )
 
@@ -67,8 +67,8 @@ require (
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.11 // indirect
 	golang.org/x/arch v0.5.0 // indirect
-	golang.org/x/net v0.17.0 // indirect
-	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/net v0.23.0 // indirect
+	golang.org/x/sys v0.18.0 // indirect
 	golang.org/x/text v0.14.0
 	golang.org/x/tools v0.14.0 // indirect
 	google.golang.org/protobuf v1.33.0 // indirect
