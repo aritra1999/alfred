@@ -1,6 +1,7 @@
 module albert
 
-go 1.21.3
+go 1.23.0
+
 toolchain go1.24.1
 
 require (
@@ -12,7 +13,7 @@ require (
 	github.com/swaggo/swag v1.16.4
 	golang.org/x/time v0.11.0
 	gorm.io/driver/postgres v1.5.11
-	gorm.io/gorm v1.26.0
+	gorm.io/gorm v1.26.1
 )
 
 require (
